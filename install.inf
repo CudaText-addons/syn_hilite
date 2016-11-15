@@ -1,0 +1,15 @@
+[info]
+title=Hilite
+desc=Highlights (with search marks) all occurrences of selected text, or word under caret
+type=py-plugin
+subdir=syn_hilite
+
+[ini1]
+section=Events
+id=Hilite
+params=on_caret_move
+
+[ini2]
+section=Commands
+id=Hilite\Config
+params=config

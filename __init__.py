@@ -1,6 +1,9 @@
 ﻿import os
 import string
 import sw as app
+                
+if app.app_api_version()<'1.0.158':
+    app.msg_box(app.MSG_ERROR, 'Hilite plugin needs newer app version')
 
 #----------------------Settings---------------------#
 MIN_LEN  = 1 # For word or selected text.
@@ -19,6 +22,7 @@ CARET_WHOLE_WORDS    = True # Whole word only.
 
 CHARS = string.ascii_letters + string.digits + '_'
 fn_ini = os.path.join(app.app_ini_dir(), 'syn_hilite.ini')
+MARKTAG = 102 #uniq value for all search-marks plugins
 
 
 def do_load_ops():
@@ -82,7 +86,7 @@ class Command:
     if ed_self.get_text_len() > MAX_SIZE: return
 
     app.msg_status('')
-    ed_self.add_mark(-1, 0) #remove srch-marks
+    ed_self.marks(app.MARKS_DELETE_BY_TAG, 0, 0, MARKTAG)
 
     current_text = _get_current_text(ed_self)
     if not current_text: return
@@ -114,11 +118,11 @@ class Command:
       if item == (x0, y0): continue
 
       npos = ed_self.xy_pos(item[0], item[1])
-      ed_self.add_mark(npos, len(text))
+      ed_self.marks(app.MARKS_ADD, npos, len(text), MARKTAG)
     else:
       if CARET_ALLOW and not is_selection:
         npos = ed_self.xy_pos(x0, y0)
-        ed_self.add_mark(npos, len(text))
+        ed_self.marks(app.MARKS_ADD, npos, len(text), MARKTAG)
 
     app.msg_status('Matches hilited: {}'.format(len(items)))
 

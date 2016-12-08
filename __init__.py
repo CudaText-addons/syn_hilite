@@ -6,18 +6,18 @@ if app.app_api_version()<'1.0.158':
     app.msg_box(app.MSG_ERROR, 'Hilite plugin needs newer app version')
 
 #----------------------Settings---------------------#
-MIN_LEN  = 1 # For word or selected text.
-MAX_SIZE = 100*1000 # In chars.
+MIN_LEN  = 2 # For word or selected text
+MAX_SIZE = 400*1000 # Max allowed chars count
 
-SEL_ALLOW             = True  # Hilite all occurrences of selected text.
-SEL_ALLOW_WHITE_SPACE = False # Hilite spaces there located in begin or end of selection
+SEL_ALLOW             = True  # Hilite all occurrences of selected text
+SEL_ALLOW_WHITE_SPACE = False # Hilite spaces located in begin or end of selection
 SEL_CASE_SENSITIVE    = False
-SEL_WORDS_ONLY        = False # Hilite character only if it containts in CHARS.
-SEL_WHOLE_WORDS       = False # Whole word only. Used only if bool(SEL_WORDS_ONLY) == True.
+SEL_WORDS_ONLY        = False # Hilite char only if it's in CHARS
+SEL_WHOLE_WORDS       = False # Whole word only. Used only if bool(SEL_WORDS_ONLY)
 
-CARET_ALLOW          = True # Hilite all occurrences of word under caret.
+CARET_ALLOW          = True # Hilite all occurrences of word under caret
 CARET_CASE_SENSITIVE = True
-CARET_WHOLE_WORDS    = True # Whole word only.
+CARET_WHOLE_WORDS    = True # Whole word only
 #-----------------------------------------------#
 
 CHARS = string.ascii_letters + string.digits + '_'
@@ -85,7 +85,6 @@ class Command:
     if ed_self.get_carets(): return #donot allow mul-carets
     if ed_self.get_text_len() > MAX_SIZE: return
 
-    app.msg_status('')
     ed_self.marks(app.MARKS_DELETE_BY_TAG, 0, 0, MARKTAG)
 
     current_text = _get_current_text(ed_self)

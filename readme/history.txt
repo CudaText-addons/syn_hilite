@@ -1,4 +1,8 @@
 
+2016.12.08
+- fix: editor blinked in typing (reason: msg_status api)
+* chg default options
+
 2016.11.30
 + used new API for srch-marks
 
